@@ -34,3 +34,20 @@ Run `python managage.py migrate_or_rollback` instead of the standard `migrate` c
 In particular, you should use `migrate_or_rollback` in place of `migrate` in your deployment scripts or CI/CD system.
 
 `migrate_or_rollback` has all of the same options as `migrate`, such as the `--noinput` flag.
+
+
+## Warning
+
+This library assumes that your migrations are reversable.  Not all migrations are reversible.  Additionally, rolling back migrations only reverses schema doesn't rewind the database contents.
+
+In particular:
+* Deleted data (such as dropping columns or tables) won't be restored by rolling
+back the migration that deletes it.  To avoid this, you should make fields
+nullable in one deploy and delete them in the next.
+* `RunPython` statements that are missing a `reverse` function will error on
+rollback.  At a minimum, add `migrations.RunPython.noop` as a reverse function.
+Additionally, RunPython reverse functions can be used to rewind changes to
+database contents on migration rollback.
+* A migration that deletes a non-nullable field will error on rollback.
+To avoid this, make the field nullable in one deploy and delete it in the next.
+
