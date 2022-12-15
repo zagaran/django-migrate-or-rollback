@@ -17,9 +17,10 @@ replacement for the Django builtin management command `migrate`.  Here's how it 
 
 Alternatively, add `django-migrate-or-rollback` to your requirements.txt file.
 
-Then, add `django_migrate_or_rollback` to your `INSTALLED_APPS` in settings.py, like so:
+Then, add `"django_migrate_or_rollback"` to your `INSTALLED_APPS` in settings.py, like so:
 
 ```
+# settings.py
 INSTALLED_APPS = [
     # ...
     "django_migrate_or_rollback",
@@ -32,4 +33,4 @@ Run `python managage.py migrate_or_rollback` instead of the standard `migrate` c
 
 In particular, you should use `migrate_or_rollback` in place of `migrate` in your deployment scripts or CI/CD system.
 
-`migrate_or_rollback` has all of the same options as `migrate`, such as `--noinput`.
+`migrate_or_rollback` has all of the same options as `migrate`, such as the `--noinput` flag.
