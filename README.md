@@ -1,20 +1,35 @@
-The MIT License (MIT)
+# django-migrate-or-rollback
 
-Copyright (c) 2022 Zagaran, Inc.
+While single migrations in Django are atomic (as long as they have the default `atomic=True`),
+a group of migrations are not.  Thus, when running migrations, you can have a partial
+failure where some but not all of your migrations succeed.  This library fixes that.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of
-this software and associated documentation files (the "Software"), to deal in
-the Software without restriction, including without limitation the rights to
-use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-the Software, and to permit persons to whom the Software is furnished to do so,
-subject to the following conditions:
+This library provides a new management command `migrate_or_rollback`.  It's a drop-in
+replacement for the Django builtin management command `migrate`.  Here's how it works:
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+1. Checks your database and current migration files for the latest migrations run per Django app.
+2. Runs migrations as normal.
+3. If migrations fail, it rolls back to the migrations identified in step 1.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+## Instalation
+
+`pip install django-migrate-or-rollback`
+
+Alternatively, add `django-migrate-or-rollback` to your requirements.txt file.
+
+Then, add `django_migrate_or_rollback` to your `INSTALLED_APPS` in settings.py, like so:
+
+```
+INSTALLED_APPS = [
+    # ...
+    "django_migrate_or_rollback",
+]
+```
+
+## Usage
+
+Run `python managage.py migrate_or_rollback` instead of the standard `migrate` command.
+
+In particular, you should use `migrate_or_rollback` in place of `migrate` in your deployment scripts or CI/CD system.
+
+`migrate_or_rollback` has all of the same options as `migrate`, such as `--noinput`.
