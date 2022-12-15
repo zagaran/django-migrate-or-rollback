@@ -18,7 +18,7 @@ setuptools.setup(
     license="MIT",
     long_description=README,
     long_description_content_type="text/markdown",
-    name="migrate-or-rollback",
+    name="django-migrate-or-rollback",
     packages=setuptools.find_packages(),
     install_requires=["django >= 2.0"],
     python_requires='>=3.6',
