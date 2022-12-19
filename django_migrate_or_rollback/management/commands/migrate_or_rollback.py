@@ -31,5 +31,5 @@ class Command(migrate.Command):
             print()
             for app, migration_name in last_migration_names.items():
                 call_command("migrate", app, migration_name)
-            print("\nRollboack successfull\n")
+            print("\Rollback successful\n")
             raise

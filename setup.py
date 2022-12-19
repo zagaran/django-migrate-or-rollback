@@ -23,5 +23,5 @@ setuptools.setup(
     install_requires=["django >= 2.0"],
     python_requires='>=3.6',
     url="https://github.com/zagaran/django-migrate-or-rollback",
-    version="0.0.1",
+    version="0.0.2",
 )

@@ -29,7 +29,7 @@ INSTALLED_APPS = [
 
 ## Usage
 
-Run `python managage.py migrate_or_rollback` instead of the standard `migrate` command.
+Run `python manage.py migrate_or_rollback` instead of the standard `migrate` command.
 
 In particular, you should use `migrate_or_rollback` in place of `migrate` in your deployment scripts or CI/CD system.
 
